@@ -14,6 +14,7 @@ import bodyParser from "body-parser";
 import { EventEmitter } from "events";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import swaggerUI from "swagger-ui-express";
 
 const eventEmitter = new EventEmitter();
 const PORT = process.env.PORT || 3000;
@@ -1815,4 +1816,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+swaggerUI.setup(specs, { customCssUrl: CSS_URL });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
