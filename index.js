@@ -63,6 +63,11 @@ app.listen(3000, () => {
   console.log("Server is connected");
   eventEmitter.on("start", (PORT) => {
     console.log(`app is started ${PORT}`);
+    return (
+      <>
+        <h4>Wellcom to Web-App</h4>
+      </>
+    );
   });
 
   eventEmitter.emit("start", 3000);
