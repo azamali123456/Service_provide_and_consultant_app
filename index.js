@@ -35,6 +35,8 @@ connection.once("connected", () => {
 connection.on("error", (error) => {
   console.log("Database error", error);
 });
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 mongoose.connect(
   "mongodb+srv://aazam7246:dTGqRKMRhGSo0WH9@cluster0.7lsx0xx.mongodb.net/?retryWrites=true&w=majority",
   {
@@ -1816,7 +1818,6 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 swaggerUI.setup(specs, { customCssUrl: CSS_URL });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
