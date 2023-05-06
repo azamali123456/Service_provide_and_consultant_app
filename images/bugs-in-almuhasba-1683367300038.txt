@@ -1,0 +1,21 @@
+Bugs in Almuhasba Project :
+
+Auth page
+1) After user loginOut have already submitted company form when he/she again logedIn Company form shown again.
+
+Company Form
+1) Input feild ( Phone , email , link ) accept invalid value and allow to submit data.
+
+Fasel Book Form
+1) Input feild ( Year , Next Year , Currency ) accept invalid value and allow to submit data.
+
+Labour Type Form
+1) Labour Type should be test not number.It allow to submit labour type as number.
+2) Delete operation not working. On click delete icon sub modal not open.
+
+
+
+
+1) Delete icon is not clickable ( It is clickable when table pages more then 10 / ALL Tables problem )
+2) Warehouse, Store ,Chatha are differet collection in Database so they cannot be editanle from other id.
+3) When you add Chatha error comes ( Chatha.storeId is a required property )
