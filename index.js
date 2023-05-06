@@ -61,16 +61,11 @@ app.use("/admin/product", productRouter);
 // Backend Website Port
 app.listen(3000, () => {
   console.log("Server is connected");
-  eventEmitter.on("start", (PORT) => {
-    console.log(`app is started ${PORT}`);
-    return (
-      <>
-        <h4>Wellcom to Web-App</h4>
-      </>
-    );
-  });
-
-  eventEmitter.emit("start", 3000);
+  // eventEmitter.on("start", (PORT) => {
+  //   console.log(`app is started ${PORT}`);
+  // });
+  console.log(`app is started ${PORT}`);
+  return "Hello World!";
 });
 
 const options = {
