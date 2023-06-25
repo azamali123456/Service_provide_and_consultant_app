@@ -29,22 +29,20 @@ app.use(
   })
 );
 const connection = mongoose.connection;
+
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+mongoose.connect("mongodb://0.0.0.0:27017", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 connection.once("connected", () => {
   console.log("Databae is connected");
 });
 connection.on("error", (error) => {
   console.log("Database error", error);
 });
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-mongoose.connect(
-  "mongodb+srv://aazam7246:dTGqRKMRhGSo0WH9@cluster0.7lsx0xx.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
-
 // For Login and Signup ( He may be job creater --- OR --- crate a channal and complete jobs  )
 app.use("/auth", useRouter);
 // User Create  Services
@@ -75,1743 +73,529 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "LogRocket Express API with Swagger",
-      version: "1.1.0",
-      description:
-        "This is a simple CRUD API application made with Express and documented with Swagger",
+      title: "FYP project",
+      version: "1.0.0",
     },
     servers: [
       {
-        url: "https://service-provide-and-consultant-app.vercel.app/",
+        url: "http://localhost:3000",
       },
     ],
-    paths: {
-      //Technologies
-      "/services": {
-        post: {
-          tags: ["Services"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "service_id", "color"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    imageUrl: {
-                      type: "file",
-                    },
-                    service_id: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Technology"],
-          summary: "technologies",
-          operationId: "GetAllTechnologies",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-
-      "/services/{id}": {
-        patch: {
-          tags: ["Services"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "color", "service_id"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    imageUrl: {
-                      type: "file",
-                    },
-                    color: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    service_id: {
-                      type: "string",
-                      example: "test",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/technologies",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Technology"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["Technology"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          // servers: [
-          //   {
-          //     url: "https://technologies",
-          //     variables: {},
-          //   },
-          // ],
-        },
-      },
-      //Pages
-      "/auth/login": {
-        post: {
-          tags: ["Auth"],
-          summary: "Login User",
-          operationId: "Login",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["email", "password"],
-                  type: "object",
-                  properties: {
-                    email: {
-                      type: "string",
-                    },
-                    password: {
-                      type: "string",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "http://localhost:3000",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/": {
-        post: {
-          tags: ["Pages"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["pageName"],
-                  type: "object",
-                  properties: {
-                    pageName: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/page",
-              variables: {},
-            },
-          ],
-        },
-        // Services
-      },
-      "/question": {
-        post: {
-          tags: ["Question"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "discription", "color"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    imageUrl: {
-                      type: "file",
-                    },
-                    discription: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Services"],
-          summary: "Get All",
-          operationId: "GetAllTechnologies",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/services/technologies": {
-        get: {
-          tags: ["Services"],
-          summary: "Get All",
-          operationId: "GetAllTechnologies",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-
-      "/services/{id}": {
-        patch: {
-          tags: ["Services"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "color", "description"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    imageUrl: {
-                      type: "file",
-                    },
-                    color: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    discription: {
-                      type: "string",
-                      example: "test",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/services",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Services"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["Services"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          // servers: [
-          //   {
-          //     url: "https://technologies",
-          //     variables: {},
-          //   },
-          // ],
-        },
-      },
-      //Job card
-      "/jobcard": {
-        post: {
-          tags: ["jobcard"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: [
-                    "name",
-                    "skills",
-                    "description",
-                    "experience",
-                    "location",
-                    "color",
-                  ],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Azam Ali",
-                    },
-                    skills: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    description: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "red",
-                    },
-                    experience: {
-                      type: "string",
-                      example: "3 Year",
-                    },
-                    location: {
-                      type: "string",
-                      example: "RYK",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["jobcard"],
-          summary: "Get All",
-          operationId: "GetAlljobcard",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/jobcard/{id}": {
-        patch: {
-          tags: ["jobcard"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: [
-                    "name",
-                    "skills",
-                    "description",
-                    "experience",
-                    "location",
-                    "color",
-                  ],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Azam Ali",
-                    },
-                    skills: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    description: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "red",
-                    },
-                    experience: {
-                      type: "string",
-                      example: "3 Year",
-                    },
-                    location: {
-                      type: "string",
-                      example: "RYK",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["jobcard"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["jobcard"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-
-      //Projects
-      "/projects": {
-        post: {
-          tags: ["Projects"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: [
-                    "name",
-                    "catagories_id",
-                    "imageUrl",
-                    "discription",
-                    "color",
-                  ],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Azam Ali",
-                    },
-                    catagories_id: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    description: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "red",
-                    },
-
-                    imageUrl: {
-                      type: "string",
-                      example: "RYK",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Projects"],
-          summary: "Get All",
-          operationId: "GetAllprojects",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/projects/{id}": {
-        patch: {
-          tags: ["Projects"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: [
-                    "name",
-                    "catagories_id",
-                    "imageUrl",
-                    "discription",
-                    "color",
-                  ],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Azam Ali",
-                    },
-                    catagories_id: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    description: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "red",
-                    },
-
-                    imageUrl: {
-                      type: "string",
-                      example: "RYK",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Projects"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["Projects"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-
-      "/catagories": {
-        post: {
-          tags: ["categories"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Javascrit",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["categories"],
-          summary: "Get All",
-          operationId: "GetAllcategories",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/catagories/{id}": {
-        patch: {
-          tags: ["categories"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "Azam Ali",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["categories"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["categories"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/iptv": {
-        post: {
-          tags: ["Iptv"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "discription", "color"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    imageUrl: {
-                      type: "string",
-                    },
-                    discription: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Iptv"],
-          summary: "Iptv",
-          operationId: "GetAllIptvs",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/iptv/{id}": {
-        patch: {
-          tags: ["Iptv"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "color", "description"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    imageUrl: {
-                      type: "string",
-                    },
-                    color: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    service_id: {
-                      type: "string",
-                      example: "test",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/iptv",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Iptv"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["Iptv"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          // servers: [
-          //   {
-          //     url: "https://technologies",
-          //     variables: {},
-          //   },
-          // ],
-        },
-      },
-      "/career": {
-        post: {
-          tags: ["career"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "discription", "color"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    imageUrl: {
-                      type: "string",
-                    },
-                    discription: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    color: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["career"],
-          summary: "Career",
-          operationId: "GetAllcareer",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/career/{id}": {
-        patch: {
-          tags: ["career"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["name", "imageUrl", "color", "description"],
-                  type: "object",
-                  properties: {
-                    name: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    imageUrl: {
-                      type: "string",
-                    },
-                    color: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    service_id: {
-                      type: "string",
-                      example: "test",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/iptv",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["career"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["career"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          // servers: [
-          //   {
-          //     url: "https://technologies",
-          //     variables: {},
-          //   },
-          // ],
-        },
-      },
-      "/applicant": {
-        post: {
-          tags: ["Applicant"],
-          summary: "Add",
-          operationId: "Add",
-          parameters: [],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["firstName", "lastName", "roll", "email", "phone"],
-                  type: "object",
-                  properties: {
-                    firstName: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    lastName: {
-                      type: "string",
-                    },
-                    roll: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    email: {
-                      type: "string",
-                      example: "two",
-                    },
-                    phone: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Applicant"],
-          summary: "Applicant",
-          operationId: "GetAllcareer",
-          parameters: [],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-      },
-      "/applicant/{id}": {
-        patch: {
-          tags: ["Applicant"],
-          summary: "Update",
-          operationId: "Update",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              "application/x-www-form-urlencoded": {
-                encoding: {},
-                schema: {
-                  required: ["firstName", "lastName", "roll", "email", "phone"],
-                  type: "object",
-                  properties: {
-                    firstName: {
-                      type: "string",
-                      example: "pagetwo",
-                    },
-                    lastName: {
-                      type: "string",
-                    },
-                    roll: {
-                      type: "string",
-                      example: "asdf",
-                    },
-                    email: {
-                      type: "string",
-                      example: "two",
-                    },
-                    phone: {
-                      type: "string",
-                      example: "two",
-                    },
-                  },
-                },
-              },
-            },
-            required: false,
-          },
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/iptv",
-              variables: {},
-            },
-          ],
-        },
-        get: {
-          tags: ["Applicant"],
-          summary: "Get By ID",
-          operationId: "GetByID",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6340137d9996cd973403c170",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          servers: [
-            {
-              url: "https://mercurysole.herokuapp.com/",
-              variables: {},
-            },
-          ],
-        },
-        delete: {
-          tags: ["Applicant"],
-          summary: "Delete",
-          operationId: "Delete",
-          parameters: [
-            {
-              name: "id",
-              in: "path",
-              description: "",
-              required: true,
-              style: "simple",
-              schema: {
-                type: "string",
-                example: "6343d2efb1d95db29eef3daa",
-              },
-            },
-          ],
-          responses: {
-            200: {
-              description: "",
-              headers: {},
-            },
-          },
-          deprecated: false,
-          // servers: [
-          //   {
-          //     url: "https://technologies",
-          //     variables: {},
-          //   },
-          // ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
         },
       },
     },
     tags: [
       {
-        name: "Auth",
+        name: "Add Question",
+      },
+      {
+        name: "Add Answer",
+      },
+      {
+        name: "auth",
       },
       {
         name: "Services",
       },
       {
-        name: "Question",
+        name: "course",
       },
       {
-        name: "Answers",
-      },
-      {
-        name: "Projects",
-      },
-      {
-        name: "categories",
-      },
-      {
-        name: "Iptv",
-      },
-      {
-        name: "career",
-      },
-      {
-        name: "Applicant",
+        name: "product",
       },
     ],
+    paths: {
+      "/user/question/643c11645fa88451e84c6ff0": {
+        post: {
+          tags: ["Add Question"],
+          summary: "create question",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    statement: "What is propper noun?",
+                    tags: ["prs", "prs", "question"],
+                    viewState: "false",
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        get: {
+          tags: ["Add Question"],
+          summary: "get Specific user question",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question": {
+        get: {
+          tags: ["Add Question"],
+          summary: "get all question",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question/to/expert": {
+        get: {
+          tags: ["Add Question"],
+          summary: "get  user question to admin",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question/my/questions": {
+        get: {
+          tags: ["Add Question"],
+          summary: "get my question",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question/myquestions/answer": {
+        get: {
+          tags: ["Add Question"],
+          summary: "get my question answer",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/answer": {
+        post: {
+          tags: ["Add Answer"],
+          summary: "create answer",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    ansStatement: "This is answer of yors question",
+                    questionId: "644ab78f3120cd246957c9b2",
+                    viewState: "false",
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          parameters: [
+            {
+              name: "ansStatement",
+              in: "query",
+              schema: {
+                type: "string",
+              },
+              example: "Yes",
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        get: {
+          tags: ["Add Answer"],
+          summary: "get all answer",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question/643c11ca37a09f060dc70cb9": {
+        get: {
+          tags: ["Add Answer"],
+          summary: "get Specific user answer",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/answer/my/answers": {
+        get: {
+          tags: ["Add Answer"],
+          summary: "get my answer",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/auth/forgetPassword": {
+        post: {
+          tags: ["auth"],
+          summary: "forgetPassword",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    email: "aazam7246@gmail.com",
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/auth/register": {
+        post: {
+          tags: ["auth"],
+          summary: "signUp",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    email: "aazam7246@gmail.com",
+                    name: "Azam Ali",
+                    password: "azamali",
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/auth/login": {
+        post: {
+          tags: ["auth"],
+          summary: "login",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    email: "aazam7246@gmail.com",
+                    password: "12345",
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/auth/otpVerify": {
+        post: {
+          tags: ["auth"],
+          summary: "resetPassword",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    otp: "5020",
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/services": {
+        post: {
+          tags: ["Services"],
+          summary: "services",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    title: "HRM",
+                    discription: "We provide best HRM services.",
+                    imageUrl: "image1637gyt7yy.png",
+                    subServices: [
+                      {
+                        title: "HRM",
+                        discription: "We provide best HRM services.",
+                        imageUrl: "image1637gyt7yy.png",
+                      },
+                      {
+                        title: "HRM",
+                        discription: "We provide best HRM services.",
+                        imageUrl: "image1637gyt7yy.png",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        get: {
+          tags: ["Services"],
+          summary: "services",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/course": {
+        get: {
+          tags: ["product"],
+          summary: "my product by name",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        post: {
+          tags: ["product"],
+          summary: "delete product",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    department: "Management",
+                    title: "HR Business Management",
+                    discription: "Management",
+                    createdBy: "643c11645fa88451e84c6ff0",
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/product": {
+        post: {
+          tags: ["product"],
+          summary: "create product",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    type: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+    },
   },
 
   apis: ["./index.js"],
