@@ -45,7 +45,6 @@ router.get("/department/:name", authenticate, async (req, res) => {
     res.status(500).send(error);
   }
 });
-
 //Update product
 router.patch("/:id", authenticate, async (req, res) => {
   try {

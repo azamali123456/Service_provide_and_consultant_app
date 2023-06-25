@@ -32,10 +32,13 @@ const connection = mongoose.connection;
 
 const CSS_URL =
   "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-mongoose.connect("mongodb://0.0.0.0:27017", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://aazam7246:dTGqRKMRhGSo0WH9@cluster0.7lsx0xx.mongodb.net/?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 connection.once("connected", () => {
   console.log("Databae is connected");
@@ -110,7 +113,7 @@ const options = {
       },
     ],
     paths: {
-      "/user/question/643c11645fa88451e84c6ff0": {
+      "/user/question/:id": {
         post: {
           tags: ["Add Question"],
           summary: "create question",
@@ -296,7 +299,97 @@ const options = {
           },
         },
       },
-      "/user/question/643c11ca37a09f060dc70cb9": {
+      "/user/answer": {
+        delete: {
+          tags: ["Add Answer"],
+          summary: "Delete Answer",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        patch: {
+          tags: ["Add Answer"],
+          summary: "Update Answer",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/user/question/:id": {
         get: {
           tags: ["Add Answer"],
           summary: "get Specific user answer",
@@ -373,6 +466,7 @@ const options = {
                     email: "aazam7246@gmail.com",
                     name: "Azam Ali",
                     password: "azamali",
+                    userType: "Admin",
                   },
                 },
               },
@@ -441,6 +535,123 @@ const options = {
           },
         },
       },
+      "/auth/passwordReset": {
+        post: {
+          tags: ["auth"],
+          summary: "resetPassword",
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  example: {
+                    email: "azam@gmail.com",
+                    password: "41265",
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/auth/:id": {
+        delete: {
+          tags: ["auth"],
+          summary: "Delete User",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        patch: {
+          tags: ["auth"],
+          summary: "Update User",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
       "/services": {
         post: {
           tags: ["Services"],
@@ -498,6 +709,96 @@ const options = {
           },
         },
       },
+      "/services/:id": {
+        delete: {
+          tags: ["Services"],
+          summary: "Delete Services",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        patch: {
+          tags: ["Services"],
+          summary: "update Services",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
       "/admin/course": {
         get: {
           tags: ["product"],
@@ -518,7 +819,7 @@ const options = {
         },
         post: {
           tags: ["product"],
-          summary: "delete product",
+          summary: "Add Products",
           requestBody: {
             content: {
               "application/json": {
@@ -580,6 +881,268 @@ const options = {
               },
             },
           },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/product:id": {
+        delete: {
+          tags: ["product"],
+          summary: "Delete Product",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        patch: {
+          tags: ["product"],
+          summary: "update Product",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/course": {
+        post: {
+          tags: ["course"],
+          summary: "create course",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        get: {
+          tags: ["course"],
+          summary: " Get  All course ",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/course/:id": {
+        delete: {
+          tags: ["course"],
+          summary: "Delete course",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+        patch: {
+          tags: ["course"],
+          summary: "update course",
+          requestBody: {
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    title: {
+                      type: "string",
+                      example: "laptop",
+                    },
+                    discription: {
+                      type: "string",
+                      example: "This is laptop.",
+                    },
+                    department: {
+                      type: "string",
+                      example: "IT product",
+                    },
+                    createdBy: {
+                      type: "string",
+                      example: "643c11645fa88451e84c6ff0",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful response",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+      "/admin/course/department/:name": {
+        get: {
+          tags: ["course"],
+          summary: " Get course By Department name ",
           security: [
             {
               bearerAuth: [],
