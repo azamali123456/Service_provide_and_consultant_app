@@ -81,7 +81,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://cooperative-foal-sundress.cyclic.app/",
+        url: "https://crowded-ruby-flannel-nightgown.cyclic.app",
       },
     ],
     components: {
