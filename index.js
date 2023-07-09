@@ -69,14 +69,14 @@ app.listen(3000, () => {
   //   console.log(`app is started ${PORT}`);
   // });
   console.log(`app is started ${PORT}`);
-  return "Hello World!";
+  return "Wellcome to backend!";
 });
 
 const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "FYP project",
+      title: "Rana Zawar App",
       version: "1.0.0",
     },
     servers: [
